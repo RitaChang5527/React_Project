@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-export default function Player({ name, symbol }) {
+export default function Player({ initalName, symbol, isActive }) {
     const [isEditing, setIsEditing] = useState(false);
-    const [playerName, setPlayerName] = useState(name);
+    const [playerName, setPlayerName] = useState(initalName);
 
     function handleEdit() {
         setIsEditing((prev) => !prev);
@@ -12,10 +12,10 @@ export default function Player({ name, symbol }) {
         setPlayerName(event.target.value);
     }
 
-    let playerContent = <span className="player-name">{playerName}</span>;
+    let editablePlayerName = <span className="player-name">{playerName}</span>;
 
     if (isEditing) {
-        playerContent = (
+        editablePlayerName = (
             <input
                 type="text"
                 required
@@ -26,9 +26,9 @@ export default function Player({ name, symbol }) {
     }
 
     return (
-        <li>
+        <li className={isActive ? "active" : ""}>
             <span className="player">
-                {playerContent}
+                {editablePlayerName}
                 <span className="player-symbol">{symbol}</span>
             </span>
             <button onClick={handleEdit}>{isEditing ? "Save" : "Edit"}</button>
